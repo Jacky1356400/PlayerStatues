@@ -1,7 +1,7 @@
 [
 {
   "modid": "playerstatues",
-  "name": "PlayerStatues",
+  "name": "Player Statues",
   "description": "Adds a hammer used to craft Statues.",
   "version": "1.0",
   "mcversion": "1.12",
