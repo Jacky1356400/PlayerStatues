@@ -1,6 +1,6 @@
 package me.jacky1356400.playerstatues.gui;
 
-import me.jacky1356400.playerstatues.utilities.InventoryStatic;
+import me.jacky1356400.playerstatues.util.InventoryStatic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;

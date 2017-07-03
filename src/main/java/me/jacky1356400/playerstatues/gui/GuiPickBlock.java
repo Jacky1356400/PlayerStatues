@@ -1,7 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 
-import me.jacky1356400.playerstatues.utilities.GeneralClient;
+import me.jacky1356400.playerstatues.util.GeneralClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
