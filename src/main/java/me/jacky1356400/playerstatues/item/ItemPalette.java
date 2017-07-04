@@ -1,21 +1,16 @@
 package me.jacky1356400.playerstatues.item;
 
-import me.jacky1356400.playerstatues.helper.GeneralStatueClient;
-import me.jacky1356400.playerstatues.PlayerStatues;
-import me.jacky1356400.playerstatues.tile.TileEntityStatue;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import me.jacky1356400.playerstatues.util.Data;
+import me.jacky1356400.playerstatues.util.IHasModel;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class ItemPalette extends Item {
+public class ItemPalette extends Item implements IHasModel {
 	public ItemPalette() {
-		super();
-		this.setCreativeTab(CreativeTabs.tabTools);
+		setRegistryName(Data.MODID + ":palette");
+		setUnlocalizedName(Data.MODID + ".palette");
+		setMaxStackSize(1);
+		setCreativeTab(Data.TAB);
+		Data.ITEMS.add(this);
 	}
 
 	@Override
@@ -23,6 +18,8 @@ public class ItemPalette extends Item {
 		return true;
 	}
 
+	//TODO: Make palette functional
+	/*
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hx, float hy, float hz) {
 		Block block;
@@ -56,5 +53,6 @@ public class ItemPalette extends Item {
 			
 		return true;
 	}
+	*/
 
 }

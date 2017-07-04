@@ -1,0 +1,10 @@
+#Creative Tab
+itemGroup.playerstatues=Player Statues
+
+#Items
+item.playerstatues.hammer.name=Hammer
+item.playerstatues.palette.name=Palette
+
+#Blocks
+tile.playerstatues.statue.name=Statue
+tile.playerstatues.showcase.name=Showcase
