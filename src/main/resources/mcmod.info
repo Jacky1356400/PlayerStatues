@@ -1,13 +1,13 @@
 [
 {
-  "modid": "statues",
-  "name": "Statues",
+  "modid": "playerstatues",
+  "name": "Player Statues",
   "description": "Adds a hammer used to craft Statues.",
   "version": "1.10.2-1.0",
   "mcversion": "1.10.2",
-  "url": "https://github.com/Jacky1356400/Statues",
+  "url": "https://github.com/Jacky1356400/PlayerStatues",
   "updateUrl": "",
-  "authorList": ["Jacky1356400"],
+  "authorList": ["Jacky1356400", "Turkey2349"],
   "credits": "AUTOMATIC_MAIDEN and asiekierka",
   "logoFile": "",
   "screenshots": [],

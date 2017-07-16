@@ -8,14 +8,13 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
-
+//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 version = "${mc_version}-${mod_version}"
-group= "me.jacky1356400.statues" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Statues"
+group= "me.jacky1356400.playerstatues"
+archivesBaseName = "PlayerStatues"
 
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
@@ -23,8 +22,7 @@ compileJava {
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run-1.10"
-    
-    mappings = "snapshot_${mappings_version}"
+    mappings = "${mappings_version}"
 }
 
 repositories {
@@ -34,27 +32,37 @@ repositories {
         name "GobbleCore Repo"
         url "http://maven.theprogrammingturkey.com/"
     }
+	
+	maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        url "http://maven.epoxide.xyz"
+    }
+    maven {
+        url "http://maven.amadornes.com/"
+    }
+	maven {
+		url  "http://tehnut.info/maven"
+	}
 }
 
 dependencies {
 	compile "com.theprogrammingturkey.gobblecore:GobbleCore:1.10.2-0.1.4.17"
+	deobfCompile "mezz.jei:jei_1.10.2:3.14.7.420:api"
+    runtime "mezz.jei:jei_1.10.2:3.14.7.420"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.17-B31_1.10.2:api"
+	runtime "mcp.mobius.waila:Hwyla:1.8.17-B31_1.10.2"
 }
 
 processResources
 {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
