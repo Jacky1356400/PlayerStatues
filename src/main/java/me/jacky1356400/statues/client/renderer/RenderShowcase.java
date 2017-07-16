@@ -4,13 +4,14 @@
 
 package me.jacky1356400.statues.client.renderer;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import me.jacky1356400.statues.blocks.tileentities.TileEntityShowcase;
 import me.jacky1356400.statues.client.model.ModelShowcase;
 import me.jacky1356400.statues.utilities.GeneralClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -19,44 +20,61 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
-public class RenderShowcase extends TileEntitySpecialRenderer {
-	private final ModelShowcase	showcase;
-	RenderItem renderer = new RenderItem();
+public class RenderShowcase extends TileEntitySpecialRenderer<TileEntityShowcase>
+{
+	private final ModelShowcase showcase;
 
-	public RenderShowcase() {
+	public RenderShowcase()
+	{
 		showcase = new ModelShowcase();
-		
-		renderer.setRenderManager(RenderManager.instance);
 	}
 
 	/**
 	 * Render a model at the given coordinates
 	 */
-	public void renderAModelAt(TileEntityShowcase tileentity1, double x, double y, double z, float f) {
+	public void renderAModelAt(TileEntityShowcase tileentity1, double x, double y, double z, float f)
+	{
 		int meta = tileentity1.getBlockMetadata();
 		Block block = tileentity1.getBlockType();
-		
-		if((meta&4)!=0) return;
+
+		if((meta & 4) != 0)
+			return;
 
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
-		
-		switch(meta){
-		case 0: GL11.glRotatef(  0, 0.0F, 1.0F, 0.0F); break;
-		case 1: GL11.glRotatef( 90, 0.0F, 1.0F, 0.0F); break;
-		case 2: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
-		case 3: GL11.glRotatef(270, 0.0F, 1.0F, 0.0F); break;
+
+		switch(meta)
+		{
+			case 0:
+				GL11.glRotatef(0, 0.0F, 1.0F, 0.0F);
+				break;
+			case 1:
+				GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
+				break;
+			case 2:
+				GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+				break;
+			case 3:
+				GL11.glRotatef(270, 0.0F, 1.0F, 0.0F);
+				break;
 		}
-		
-		switch(meta){
-		case 0: GL11.glRotatef(180f, 0.0F, 0.0F, 1.0F); break;
-		case 1: GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F); break;
-		case 2: GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F); break;
-		case 3: GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F); break;
+
+		switch(meta)
+		{
+			case 0:
+				GL11.glRotatef(180f, 0.0F, 0.0F, 1.0F);
+				break;
+			case 1:
+				GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
+				break;
+			case 2:
+				GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
+				break;
+			case 3:
+				GL11.glRotatef(180F, 1.0F, 0.0F, 0.0F);
+				break;
 		}
 
 		float rotateLid = tileentity1.prevLidAngle + (tileentity1.lidAngle - tileentity1.prevLidAngle) * f;
@@ -72,58 +90,79 @@ public class RenderShowcase extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 
 		ItemStack stack = tileentity1.getStackInSlot(0);
-		if (stack != null){
+		if(stack != null)
+		{
 			GL11.glPushMatrix();
-			GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F-0.585F, (float) z + 0.5F);
-			renderItem(tileentity1, Minecraft.getMinecraft().thePlayer, stack,meta, f);
+			GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F - 0.585F, (float) z + 0.5F);
+			renderItem(tileentity1, Minecraft.getMinecraft().thePlayer, stack, meta, f);
 			GL11.glPopMatrix();
 		}
 	}
 
-	public void renderItem(TileEntityShowcase tile, EntityLivingBase par1EntityLiving, ItemStack stack,int meta,float frame) {
-		switch(meta){
-		case 0: GL11.glRotatef(  0, 0.0F, 1.0F, 0.0F); break;
-		case 1: GL11.glRotatef( 90, 0.0F, 1.0F, 0.0F); break;
-		case 2: GL11.glRotatef(180, 0.0F, 1.0F, 0.0F); break;
-		case 3: GL11.glRotatef(270, 0.0F, 1.0F, 0.0F); break;
+	public void renderItem(TileEntityShowcase tile, EntityLivingBase par1EntityLiving, ItemStack stack, int meta, float frame)
+	{
+		switch(meta)
+		{
+			case 0:
+				GL11.glRotatef(0, 0.0F, 1.0F, 0.0F);
+				break;
+			case 1:
+				GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
+				break;
+			case 2:
+				GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+				break;
+			case 3:
+				GL11.glRotatef(270, 0.0F, 1.0F, 0.0F);
+				break;
 		}
-		
+
 		Item item = stack.getItem();
-		if (item instanceof ItemBlock) {
+		if(item instanceof ItemBlock)
+		{
 			GL11.glScalef(1.2f, 1.2f, 1.2f);
 			GL11.glRotatef(((meta == 0 || meta == 2) ? -20.33f : 20.33f), 1.0f, 0.0f, 0.0f);
-		} else {
+		}
+		else
+		{
 			GL11.glScalef(1.5f, 1.5f, 1.5f);
-			
-			boolean rotate=false;
-			
-			if(item instanceof ItemSword) rotate=true;
 
-			switch (meta) {
-			case 0: case 2:
-				GL11.glTranslatef(0.0f, -0.1f, -0.22f);
-				GL11.glRotatef(90 - 20.33f, 1.0f, 0.0f, 0.0f);
-				break;
-			case 1: case 3:
-				GL11.glTranslatef(0.0f, -0.1f, 0.22f);
-				GL11.glRotatef(-90 + 20.33f, 1.0f, 0.0f, 0.0f);
-				break;
+			boolean rotate = false;
+
+			if(item instanceof ItemSword)
+				rotate = true;
+
+			switch(meta)
+			{
+				case 0:
+				case 2:
+					GL11.glTranslatef(0.0f, -0.1f, -0.22f);
+					GL11.glRotatef(90 - 20.33f, 1.0f, 0.0f, 0.0f);
+					break;
+				case 1:
+				case 3:
+					GL11.glTranslatef(0.0f, -0.1f, 0.22f);
+					GL11.glRotatef(-90 + 20.33f, 1.0f, 0.0f, 0.0f);
+					break;
 			}
-			
-			if (rotate) {
+
+			if(rotate)
+			{
 				GL11.glTranslatef(0.15f, 0.05f, 0.0f);
 				GL11.glRotatef(45, 0.0f, 0.0f, 1.0f);
 			}
 		}
-		
-		EntityItem entity = new EntityItem(null, tile.xCoord, tile.yCoord, tile.zCoord, stack);
+
+		EntityItem entity = new EntityItem(null, tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), stack);
 		entity.hoverStart = 0;
-		
+
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
-		try {
+		try
+		{
 			renderer.doRender(entity, 0, 0, 0, 0, 0.0f);
-		} catch (Throwable e) {
+		} catch(Throwable e)
+		{
 			e.printStackTrace();
 		}
 
@@ -134,7 +173,8 @@ public class RenderShowcase extends TileEntitySpecialRenderer {
 	 * Render a TileEntity at the given coordinates
 	 */
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f) {
-		renderAModelAt((TileEntityShowcase) tileentity, d, d1, d2, f);
+	public void renderTileEntityAt(TileEntityShowcase tileentity, double x, double y, double z, float partialTicks, int destroyStage)
+	{
+		renderAModelAt(tileentity, x, y, x, partialTicks);
 	}
 }
