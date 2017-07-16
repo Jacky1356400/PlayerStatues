@@ -4,6 +4,7 @@
 
 package me.jacky1356400.statues;
 
+import me.jacky1356400.statues.blocks.tileentities.TileEntityStatue;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.IIcon;

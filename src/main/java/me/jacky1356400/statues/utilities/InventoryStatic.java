@@ -7,42 +7,47 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-public abstract class InventoryStatic implements IInventory {
+public class InventoryStatic implements IInventory
+{
 	public final ItemStack items[];
 
-	public InventoryStatic(int size) {
+	public InventoryStatic(int size)
+	{
 		items = new ItemStack[size];
 	}
 
 	@Override
-	public String getInventoryName() {
-		return null;
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+	{
 		return false;
 	}
 
-	public void onInventoryChanged(int slot) {
+	public void onInventoryChanged(int slot)
+	{
 	}
 
 	@Override
-	public int getSizeInventory() {
+	public int getSizeInventory()
+	{
 		return items.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
+	public ItemStack getStackInSlot(int i)
+	{
 		return items[i];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (items[i] != null) {
-			if (items[i].stackSize <= j) {
+	public ItemStack decrStackSize(int i, int j)
+	{
+		if(items[i] != null)
+		{
+			if(items[i].stackSize <= j)
+			{
 				ItemStack itemstack = items[i];
 				items[i] = null;
 				onInventoryChanged();
@@ -52,23 +57,28 @@ public abstract class InventoryStatic implements IInventory {
 
 			ItemStack itemstack1 = items[i].splitStack(j);
 
-			if (items[i].stackSize == 0) {
+			if(items[i].stackSize == 0)
+			{
 				items[i] = null;
 			}
 
 			onInventoryChanged();
 			onInventoryChanged(i);
 			return itemstack1;
-		} else {
+		}
+		else
+		{
 			return null;
 		}
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
+	public void setInventorySlotContents(int i, ItemStack itemstack)
+	{
 		items[i] = itemstack;
 
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+		if(itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+		{
 			itemstack.stackSize = getInventoryStackLimit();
 		}
 
@@ -77,30 +87,37 @@ public abstract class InventoryStatic implements IInventory {
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
+	public int getInventoryStackLimit()
+	{
 		return 64;
 	}
 
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound)
+	{
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
 
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
+		for(int i = 0; i < nbttaglist.tagCount(); i++)
+		{
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound1.getByte("slot") & 0xff;
 
-			if (j >= 0 && j < items.length) {
+			if(j >= 0 && j < items.length)
+			{
 				items[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
-		
+
 		onInventoryChanged();
 	}
 
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
+	public void writeToNBT(NBTTagCompound nbttagcompound)
+	{
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < items.length; i++) {
-			if (items[i] == null) {
+		for(int i = 0; i < items.length; i++)
+		{
+			if(items[i] == null)
+			{
 				continue;
 			}
 
@@ -113,9 +130,12 @@ public abstract class InventoryStatic implements IInventory {
 		nbttagcompound.setTag("items", nbttaglist);
 	}
 
-	private int getFirstEmptyStack(int start, int end) {
-		for (int i = start; i <= end; i++) {
-			if (items[i] == null) {
+	private int getFirstEmptyStack(int start, int end)
+	{
+		for(int i = start; i <= end; i++)
+		{
+			if(items[i] == null)
+			{
 				return i;
 			}
 		}
@@ -123,9 +143,12 @@ public abstract class InventoryStatic implements IInventory {
 		return -1;
 	}
 
-	private int storeItemStack(ItemStack itemstack, int start, int end) {
-		for (int i = start; i <= end; i++) {
-			if (items[i] != null && items[i].getItem().equals(itemstack.getItem() )&& items[i].isStackable() && items[i].stackSize < items[i].getMaxStackSize() && items[i].stackSize < getInventoryStackLimit() && (!items[i].getHasSubtypes() || items[i].getItemDamage() == itemstack.getItemDamage())) {
+	private int storeItemStack(ItemStack itemstack, int start, int end)
+	{
+		for(int i = start; i <= end; i++)
+		{
+			if(items[i] != null && items[i].getItem().equals(itemstack.getItem()) && items[i].isStackable() && items[i].stackSize < items[i].getMaxStackSize() && items[i].stackSize < getInventoryStackLimit() && (!items[i].getHasSubtypes() || items[i].getItemDamage() == itemstack.getItemDamage()))
+			{
 				return i;
 			}
 		}
@@ -133,36 +156,45 @@ public abstract class InventoryStatic implements IInventory {
 		return -1;
 	}
 
-	private int storePartialItemStack(ItemStack itemstack, int start, int end) {
+	private int storePartialItemStack(ItemStack itemstack, int start, int end)
+	{
 		Item i = itemstack.getItem();
 		int j = itemstack.stackSize;
 		int k = storeItemStack(itemstack, start, end);
 
-		if (k < 0) {
+		if(k < 0)
+		{
 			k = getFirstEmptyStack(start, end);
 		}
 
-		if (k < 0) {
+		if(k < 0)
+		{
 			return j;
 		}
 
-		if (items[k] == null) {
+		if(items[k] == null)
+		{
 			items[k] = new ItemStack(i, 0, itemstack.getItemDamage());
 		}
 
 		int l = j;
 
-		if (l > items[k].getMaxStackSize() - items[k].stackSize) {
+		if(l > items[k].getMaxStackSize() - items[k].stackSize)
+		{
 			l = items[k].getMaxStackSize() - items[k].stackSize;
 		}
 
-		if (l > getInventoryStackLimit() - items[k].stackSize) {
+		if(l > getInventoryStackLimit() - items[k].stackSize)
+		{
 			l = getInventoryStackLimit() - items[k].stackSize;
 		}
 
-		if (l == 0) {
+		if(l == 0)
+		{
 			return j;
-		} else {
+		}
+		else
+		{
 			j -= l;
 			items[k].stackSize += l;
 			items[k].animationsToGo = 5;
@@ -172,64 +204,79 @@ public abstract class InventoryStatic implements IInventory {
 		}
 	}
 
-	public boolean addItemStackToInventory(ItemStack itemstack, int start, int end) {
-		if (itemstack == null) {
+	public boolean addItemStackToInventory(ItemStack itemstack, int start, int end)
+	{
+		if(itemstack == null)
+		{
 			return true;
 		}
 
-		if (!itemstack.isItemDamaged()) {
+		if(!itemstack.isItemDamaged())
+		{
 			int i;
 
-			do {
+			do
+			{
 				i = itemstack.stackSize;
 				itemstack.stackSize = storePartialItemStack(itemstack, start, end);
-			} while (itemstack.stackSize > 0 && itemstack.stackSize < i);
+			} while(itemstack.stackSize > 0 && itemstack.stackSize < i);
 
 			return itemstack.stackSize < i;
 		}
 
 		int j = getFirstEmptyStack(start, end);
 
-		if (j >= 0) {
+		if(j >= 0)
+		{
 			items[j] = ItemStack.copyItemStack(itemstack);
 			items[j].animationsToGo = 5;
 			itemstack.stackSize = 0;
 			onInventoryChanged();
 			onInventoryChanged(j);
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
 
-	public boolean addItemStackToInventory(ItemStack itemstack) {
+	public boolean addItemStackToInventory(ItemStack itemstack)
+	{
 		return addItemStackToInventory(itemstack, 0, items.length - 1);
 	}
 
-	public ItemStack takeItems(Item item, int damage, int count) {
+	public ItemStack takeItems(Item item, int damage, int count)
+	{
 		ItemStack res = null;
 
-		for (int i = 0; i < items.length; i++) {
-			if (items[i] == null || !items[i].getItem().equals(item) || items[i].getItemDamage() != damage) {
+		for(int i = 0; i < items.length; i++)
+		{
+			if(items[i] == null || !items[i].getItem().equals(item) || items[i].getItemDamage() != damage)
+			{
 				continue;
 			}
 
-			if (res == null) {
+			if(res == null)
+			{
 				res = new ItemStack(item, 0, damage);
 			}
 
-			while (items[i] != null && res.stackSize < count && items[i].stackSize > 0) {
+			while(items[i] != null && res.stackSize < count && items[i].stackSize > 0)
+			{
 				res.stackSize++;
 				items[i].stackSize--;
 
-				if (items[i].stackSize == 0) {
+				if(items[i].stackSize == 0)
+				{
 					items[i] = null;
 				}
 
 				onInventoryChanged(i);
 			}
 
-			if (res.stackSize >= count) {
+			if(res.stackSize >= count)
+			{
 				break;
 			}
 		}
@@ -238,30 +285,22 @@ public abstract class InventoryStatic implements IInventory {
 		return res;
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
-		return null;
-	}
-	
-	public void onInventoryChanged() {
+	public void onInventoryChanged()
+	{
 	}
 
 	@Override
-	public void openInventory() {
-	}
-
-	@Override
-	public void closeInventory() {
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int i, ItemStack itemstack)
+	{
 		return true;
 	}
 
-	public boolean isEmpty() {
-		for (int i = 0; i < items.length; i++) {
-			if (items[i] != null && items[i].getItem() != null) {
+	public boolean isEmpty()
+	{
+		for(int i = 0; i < items.length; i++)
+		{
+			if(items[i] != null && items[i].getItem() != null)
+			{
 				return false;
 			}
 		}
@@ -269,27 +308,35 @@ public abstract class InventoryStatic implements IInventory {
 		return true;
 	}
 
-	public void clear() {
-		for (int i = 0; i < items.length; i++) {
+	public void clear()
+	{
+		for(int i = 0; i < items.length; i++)
+		{
 			items[i] = null;
 		}
 	}
-	
-	public void throwItems(World world, int x, int y, int z){
-		if(world.isRemote) return;
-		
-		for (int i = 0; i < items.length; i++) {
+
+	public void throwItems(World world, int x, int y, int z)
+	{
+		if(world.isRemote)
+			return;
+
+		for(int i = 0; i < items.length; i++)
+		{
 			ItemStack itemstack = items[i];
-			if (itemstack == null) continue;
-			
-			items[i]=null;
+			if(itemstack == null)
+				continue;
+
+			items[i] = null;
 
 			float xx = world.rand.nextFloat() * 0.8F + 0.1F;
 			float yy = world.rand.nextFloat() * 0.8F + 0.1F;
 			float zz = world.rand.nextFloat() * 0.8F + 0.1F;
-			while (itemstack.stackSize > 0) {
+			while(itemstack.stackSize > 0)
+			{
 				int c = world.rand.nextInt(21) + 10;
-				if (c > itemstack.stackSize) {
+				if(c > itemstack.stackSize)
+				{
 					c = itemstack.stackSize;
 				}
 
@@ -307,12 +354,69 @@ public abstract class InventoryStatic implements IInventory {
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
+	public void markDirty()
+	{
+		// TODO
+	}
+
+	@Override
+	public String getName()
+	{
+		return null;
+	}
+
+	@Override
+	public boolean hasCustomName()
+	{
 		return false;
 	}
 
 	@Override
-	public void markDirty() {
-		// TODO
+	public ITextComponent getDisplayName()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getField(int id)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getFieldCount()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

@@ -1,47 +1,57 @@
 package me.jacky1356400.statues.utilities;
 
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class GuiHandler implements Comparable {
-	static ArrayList<GuiHandler> items = new ArrayList<GuiHandler>();
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-	int index;
-	Object mod;
-	String name;
+public abstract class GuiHandler implements Comparable<GuiHandler>
+{
+	private static ArrayList<GuiHandler> items = new ArrayList<GuiHandler>();
 
-	public GuiHandler(String n) {
+	private int index;
+	private Object mod;
+	private String name;
+
+	public GuiHandler(String n)
+	{
 		items.add(this);
 		name = n;
 	}
 
-	public void open(EntityPlayer player, World world, int x, int y, int z) {
-		player.openGui(mod, index, world, x, y, z);
+	public void open(EntityPlayer player, World world, BlockPos pos)
+	{
+		player.openGui(mod, index, world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	@Override
-	public int compareTo(Object a) {
-		return name.compareTo(((GuiHandler) a).name);
+	public int compareTo(GuiHandler a)
+	{
+		return name.compareTo(a.name);
 	}
 
-	public static void register(Object mod) {
+	public static void register(Object mod)
+	{
 		Collections.sort(items);
 		int index = 0;
 
-		for (GuiHandler h : items) {
+		for(GuiHandler h : items)
+		{
 			h.mod = mod;
 			h.index = index++;
 		}
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(mod, new IGuiHandler() {
+		NetworkRegistry.INSTANCE.registerGuiHandler(mod, new IGuiHandler()
+		{
 			@Override
-			public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-				if (id < 0 || id >= items.size()) {
+			public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
+			{
+				if(id < 0 || id >= items.size())
+				{
 					return null;
 				}
 
@@ -49,8 +59,10 @@ public abstract class GuiHandler implements Comparable {
 			}
 
 			@Override
-			public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-				if (id < 0 || id >= items.size()) {
+			public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
+			{
+				if(id < 0 || id >= items.size())
+				{
 					return null;
 				}
 
