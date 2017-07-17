@@ -7,7 +7,7 @@ package me.jacky1356400.playerstatues.items;
 import com.theprogrammingturkey.gobblecore.items.BaseItem;
 
 import me.jacky1356400.playerstatues.GeneralStatueClient;
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.BlockStatue;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import me.jacky1356400.playerstatues.client.gui.GuiSculpt;
@@ -56,7 +56,7 @@ public class ItemMarteau extends BaseItem
 		}
 
 		IBlockState state = world.getBlockState(pos);
-		if(!Statues.canSculpt(state, player.worldObj, pos))
+		if(!PlayerStatues.canSculpt(state, player.worldObj, pos))
 			return EnumActionResult.FAIL;
 		if(world.isRemote)
 			return EnumActionResult.PASS;
@@ -64,15 +64,15 @@ public class ItemMarteau extends BaseItem
 		IBlockState stateAbove = world.getBlockState(pos.add(0, 1, 0));
 		IBlockState stateBelow = world.getBlockState(pos.add(0, -1, 0));
 
-		if(state.equals(stateAbove) && Statues.canSculpt(state, player.worldObj, pos.add(0, 1, 0)))
+		if(state.equals(stateAbove) && PlayerStatues.canSculpt(state, player.worldObj, pos.add(0, 1, 0)))
 		{
-			Statues.guiSculpt.open(player, world, pos);
+			PlayerStatues.guiSculpt.open(player, world, pos);
 			return EnumActionResult.PASS;
 		}
 
-		if(state.equals(stateBelow) && Statues.canSculpt(state, player.worldObj, pos.add(0, -1, 0)))
+		if(state.equals(stateBelow) && PlayerStatues.canSculpt(state, player.worldObj, pos.add(0, -1, 0)))
 		{
-			Statues.guiSculpt.open(player, world, pos.add(0, -1, 0));
+			PlayerStatues.guiSculpt.open(player, world, pos.add(0, -1, 0));
 			return EnumActionResult.PASS;
 		}
 

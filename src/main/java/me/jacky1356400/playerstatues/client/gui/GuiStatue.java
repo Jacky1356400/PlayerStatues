@@ -4,7 +4,7 @@
 
 package me.jacky1356400.playerstatues.client.gui;
 
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.containers.ContainerStatue;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import me.jacky1356400.playerstatues.network.Packets;
@@ -54,8 +54,8 @@ public class GuiStatue extends GuiScreenPlus
 	{
 		try
 		{
-			Packet adjustStatue = Statues.packet.create(Packets.SCULPTURE_ADJUSTMENT).writeInt(wx).writeInt(wy).writeInt(wz).writeFloat(tile.pose.itemLeftA).writeFloat(tile.pose.itemRightA);
-			Statues.packet.sendToServer(adjustStatue);
+			Packet adjustStatue = PlayerStatues.packet.create(Packets.SCULPTURE_ADJUSTMENT).writeInt(wx).writeInt(wy).writeInt(wz).writeFloat(tile.pose.itemLeftA).writeFloat(tile.pose.itemRightA);
+			PlayerStatues.packet.sendToServer(adjustStatue);
 		} catch(Exception e)
 		{
 			e.printStackTrace();

@@ -2,11 +2,11 @@ package me.jacky1356400.playerstatues.client.gui;
 
 import java.util.Random;
 
+import me.jacky1356400.playerstatues.PlayerStatues;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import me.jacky1356400.playerstatues.StatueParameters;
-import me.jacky1356400.playerstatues.Statues;
 import me.jacky1356400.playerstatues.client.renderer.RenderPlayerStatue;
 import me.jacky1356400.playerstatues.entities.EntityStatuePlayer;
 import me.jacky1356400.playerstatues.network.Packets;
@@ -80,11 +80,11 @@ public class GuiSculpt extends GuiScreenPlus
 
 				try
 				{
-					Packet asculpt = Statues.packet.create(Packets.SCULPTURE_CREATION).writeInt(worldX).writeInt(worldY).writeInt(worldZ).writeByte((byte) face).writeString(skinName);
+					Packet asculpt = PlayerStatues.packet.create(Packets.SCULPTURE_CREATION).writeInt(worldX).writeInt(worldY).writeInt(worldZ).writeByte((byte) face).writeString(skinName);
 
 					pose.write(asculpt);
 
-					Statues.packet.sendToServer(asculpt);
+					PlayerStatues.packet.sendToServer(asculpt);
 				} catch(Exception e)
 				{
 					e.printStackTrace();

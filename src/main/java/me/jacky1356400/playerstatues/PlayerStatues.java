@@ -40,8 +40,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = "playerstatues", name = "Statues", version = Statues.VERSION, dependencies = "required-after:gobblecore")
-public class Statues implements IModCore
+@Mod(modid = PlayerStatues.MODID, name = PlayerStatues.NAME, version = PlayerStatues.VERSION, dependencies = "required-after:gobblecore")
+public class PlayerStatues implements IModCore
 {
 	public static final String MODID = "playerstatues";
 	public static final String NAME = "PlayerStatues";
@@ -49,8 +49,8 @@ public class Statues implements IModCore
 
 	static Configuration config;
 
-	@Instance("Statues")
-	public static Statues instance;
+	@Instance("PlayerStatues")
+	public static PlayerStatues instance;
 
 	@SidedProxy(clientSide = "me.jacky1356400.playerstatues.proxy.ProxyClient", serverSide = "me.jacky1356400.playerstatues.proxy.Proxy")
 	public static Proxy proxy;
@@ -67,7 +67,7 @@ public class Statues implements IModCore
 
 	public static boolean debugImages;
 
-	public Statues()
+	public PlayerStatues()
 	{
 		BlockManager.registerBlockHandler(new StatuesBlocks(), this);
 		ItemManager.registerItemHandler(new StatuesItems(), this);

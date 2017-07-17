@@ -6,7 +6,7 @@ package me.jacky1356400.playerstatues.blocks;
 
 import java.util.Random;
 
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -36,7 +36,7 @@ public class BlockStatue extends BlockContainer
 		super(Material.ROCK);
 		super.setHardness(1F);
 		super.setResistance(1F);
-		super.setRegistryName(new ResourceLocation(Statues.MODID, "statue"));
+		super.setRegistryName(new ResourceLocation(PlayerStatues.MODID, "statue"));
 		setLightOpacity(0);
 	}
 
@@ -99,7 +99,7 @@ public class BlockStatue extends BlockContainer
 
 		TileEntityStatue statue = (TileEntityStatue) world.getTileEntity(pos);
 		if(statue instanceof TileEntityStatue)
-			Statues.guiStatue.open(player, world, pos);
+			PlayerStatues.guiStatue.open(player, world, pos);
 
 		return true;
 	}

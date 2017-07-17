@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.theprogrammingturkey.gobblecore.network.NetworkManager;
 
 import me.jacky1356400.playerstatues.GeneralStatueClient;
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.StatuesBlocks;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import net.minecraft.block.Block;
@@ -35,7 +35,7 @@ public class Packets extends MessageHandlerBase
 		BlockPos pos = new BlockPos(x, y, z);
 
 		IBlockState state = player.worldObj.getBlockState(pos);
-		if(!Statues.canSculpt(state, player.worldObj, pos))
+		if(!PlayerStatues.canSculpt(state, player.worldObj, pos))
 			return;
 
 		int meta = state.getBlock().getMetaFromState(state);
@@ -59,10 +59,10 @@ public class Packets extends MessageHandlerBase
 		player.worldObj.setBlockState(pos.add(0, 1, 0), StatuesBlocks.statue.getStateFromMeta(face | 4), 3);
 		player.worldObj.notifyNeighborsOfStateChange(pos, StatuesBlocks.statue);
 
-		Packet sculpted = Statues.packet.create(Packets.SCULPTED).writeInt(x).writeInt(y).writeInt(z).writeShort((short) Block.getIdFromBlock(block)).writeByte((byte) meta);
+		Packet sculpted = PlayerStatues.packet.create(Packets.SCULPTED).writeInt(x).writeInt(y).writeInt(z).writeShort((short) Block.getIdFromBlock(block)).writeByte((byte) meta);
 		World world = player.worldObj;
 		BlockPos ppos = player.getPosition();
-		NetworkManager.getSimpleNetwork(Statues.instance).sendToAllAround(sculpted, new TargetPoint(world.provider.getDimensionType().getId(), ppos.getX(), ppos.getY(), ppos.getZ(), 64));
+		NetworkManager.getSimpleNetwork(PlayerStatues.instance).sendToAllAround(sculpted, new TargetPoint(world.provider.getDimensionType().getId(), ppos.getX(), ppos.getY(), ppos.getZ(), 64));
 	}
 
 	public void onSculptureAdjustment(Packet packet, EntityPlayer player) throws IOException

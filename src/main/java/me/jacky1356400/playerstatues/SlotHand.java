@@ -24,6 +24,6 @@ public class SlotHand extends Slot {
 	 */
 	@Override
 	public IIcon getBackgroundIconIndex() {
-		return Statues.slotHand;
+		return PlayerStatues.slotHand;
 	}
 }

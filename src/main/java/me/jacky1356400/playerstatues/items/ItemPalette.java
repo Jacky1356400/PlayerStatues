@@ -3,7 +3,7 @@ package me.jacky1356400.playerstatues.items;
 import com.theprogrammingturkey.gobblecore.items.BaseItem;
 
 import me.jacky1356400.playerstatues.GeneralStatueClient;
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,9 +40,9 @@ public class ItemPalette extends BaseItem
 			y--;
 			block = world.getBlock(x, y, z);
 			meta = world.getBlockMetadata(x, y, z);
-		} while(block.equals(Statues.statue) && (meta & 4) != 0);
+		} while(block.equals(PlayerStatues.statue) && (meta & 4) != 0);
 
-		if(block != Statues.statue)
+		if(block != PlayerStatues.statue)
 			return true;
 
 		TileEntity te = world.getTileEntity(x, y, z);
@@ -50,7 +50,7 @@ public class ItemPalette extends BaseItem
 			return true;
 		TileEntityStatue statue = (TileEntityStatue) te;
 
-		statue.block = Blocks.bedrock;
+		statue.block = Blocks.BEDROCK;
 		stack.damageItem(1, player);
 		world.markBlockForUpdate(x, y, z);
 

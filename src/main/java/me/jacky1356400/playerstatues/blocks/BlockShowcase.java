@@ -7,7 +7,7 @@ package me.jacky1356400.playerstatues.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityShowcase;
 import me.jacky1356400.playerstatues.items.StatuesItems;
 import net.minecraft.block.Block;
@@ -43,7 +43,7 @@ public class BlockShowcase extends BlockContainer
 		super(Material.WOOD);
 		super.setHardness(1F);
 		super.setResistance(1F);
-		super.setRegistryName(new ResourceLocation(Statues.MODID, "showcase"));
+		super.setRegistryName(new ResourceLocation(PlayerStatues.MODID, "showcase"));
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class BlockShowcase extends BlockContainer
 	/*
 	 * @Override
 	 * 
-	 * @SideOnly(Side.CLIENT) public Item itemPicked(World par1World, int par2, int par3, int par4){ return Statues.itemShowcase.itemID; }
+	 * @SideOnly(Side.CLIENT) public Item itemPicked(World par1World, int par2, int par3, int par4){ return PlayerStatues.itemShowcase.itemID; }
 	 */ // TODO
 
 	@Override
@@ -178,7 +178,7 @@ public class BlockShowcase extends BlockContainer
 
 		TileEntityShowcase teshowcase = (TileEntityShowcase) world.getTileEntity(pos);
 		if(teshowcase instanceof TileEntityShowcase && !world.isRemote)
-			Statues.guiShowcase.open(player, world, pos);
+			PlayerStatues.guiShowcase.open(player, world, pos);
 
 		return true;
 	}

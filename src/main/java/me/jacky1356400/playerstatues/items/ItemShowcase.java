@@ -4,7 +4,7 @@
 
 package me.jacky1356400.playerstatues.items;
 
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,7 +42,7 @@ public class ItemShowcase extends ItemReed
 	{
 		super.registerIcons(register);
 
-		Statues.slotHand = register.registerIcon("playerstatues:slothand");
+		PlayerStatues.slotHand = register.registerIcon("playerstatues:slothand");
 	}
 
 	@Override
@@ -105,11 +105,11 @@ public class ItemShowcase extends ItemReed
 		if(!world.isAirBlock(x - dx, y, z - dz))
 			return false;
 
-		world.setBlock(x, y, z, Statues.showcase, meta, 3);
+		world.setBlock(x, y, z, PlayerStatues.showcase, meta, 3);
 		if(meta >= 2)
 			meta -= 2;
-		world.setBlock(x + dx, y, z + dz, Statues.showcase, meta | 4, 3);
-		world.setBlock(x - dx, y, z - dz, Statues.showcase, (meta + 2) | 4, 3);
+		world.setBlock(x + dx, y, z + dz, PlayerStatues.showcase, meta | 4, 3);
+		world.setBlock(x - dx, y, z - dz, PlayerStatues.showcase, (meta + 2) | 4, 3);
 
 		--stack.stackSize;
 		return true;

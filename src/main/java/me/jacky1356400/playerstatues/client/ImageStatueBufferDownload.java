@@ -1,12 +1,12 @@
 package me.jacky1356400.playerstatues.client;
 
+import me.jacky1356400.playerstatues.PlayerStatues;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.init.Blocks;
 
 import javax.imageio.ImageIO;
 
-import me.jacky1356400.playerstatues.Statues;
 import me.jacky1356400.playerstatues.entities.EntityStatuePlayer;
 
 import java.awt.*;
@@ -59,7 +59,7 @@ public class ImageStatueBufferDownload implements IImageBuffer
 			if(!block.equals(Blocks.BEDROCK))
 				blendArea(0, 0, 64, 32, block, blockSide, blockMeta);
 
-			if(Statues.debugImages)
+			if(PlayerStatues.debugImages)
 				try
 				{
 					ImageIO.write(bufferedimage1, "PNG", new File(debugName + ".png"));

@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.mojang.authlib.GameProfile;
 
 import me.jacky1356400.playerstatues.StatueParameters;
-import me.jacky1356400.playerstatues.Statues;
+import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.client.ImageStatueBufferDownload;
 import me.jacky1356400.playerstatues.client.StatueTextureDownloaded;
 import me.jacky1356400.playerstatues.client.StatueTextureStatic;
@@ -81,7 +81,7 @@ public class EntityStatuePlayer extends EntityPlayer
 
 		if(tex == null)
 		{
-			tex = new StatueTextureDownloaded(skin, Statues.skinServerLocation + name + ".png", fallbackSkin, new ImageStatueBufferDownload(this, block, side, meta, name + "." + Block.getIdFromBlock(block) + "." + meta));
+			tex = new StatueTextureDownloaded(skin, PlayerStatues.skinServerLocation + name + ".png", fallbackSkin, new ImageStatueBufferDownload(this, block, side, meta, name + "." + Block.getIdFromBlock(block) + "." + meta));
 			texturemanager.loadTexture(skin, tex);
 		}
 
