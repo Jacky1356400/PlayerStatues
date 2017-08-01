@@ -57,7 +57,8 @@ public class PlayerStatues implements IModCore
 
 	public static PacketHandler packet;
 
-	public static IIcon slotHand;
+	//public static IIcon slotHand;
+    //TODO: IIcon replacement for 1.10+???
 
 	public static GuiHandler guiShowcase;
 	public static GuiHandler guiStatue;

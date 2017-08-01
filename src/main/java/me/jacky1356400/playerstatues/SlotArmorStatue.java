@@ -9,7 +9,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
 public class SlotArmorStatue extends Slot {
 	private final int	armorType;	// The armor type that can be placed on that
@@ -43,8 +42,11 @@ public class SlotArmorStatue extends Slot {
 	 * Returns the icon index on items.png that is used as background image of
 	 * the slot.
 	 */
+	/*
+	TODO: IIcon replacement for 1.10+???
 	@Override
 	public IIcon getBackgroundIconIndex() {
         return ItemArmor.getBackgroundIcon(this.armorType);
 	}
+	*/
 }

@@ -7,7 +7,6 @@ package me.jacky1356400.playerstatues;
 import me.jacky1356400.playerstatues.blocks.tileentities.TileEntityStatue;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.util.IIcon;
 
 public class SlotHand extends Slot {
 	public SlotHand(IInventory iinventory, int i, int j, int k) {
@@ -22,8 +21,11 @@ public class SlotHand extends Slot {
 	 * Returns the icon index on items.png that is used as background image of
 	 * the slot.
 	 */
+	/*
+	TODO: IIcon replacement for 1.10+???
 	@Override
 	public IIcon getBackgroundIconIndex() {
 		return PlayerStatues.slotHand;
 	}
+	*/
 }

@@ -7,6 +7,7 @@ package me.jacky1356400.playerstatues.blocks.tileentities;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,6 +15,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 
 public class TileEntityShowcase extends TileEntityLockable implements ITickable
 {
@@ -74,7 +76,7 @@ public class TileEntityShowcase extends TileEntityLockable implements ITickable
 			double d = this.pos.getX() + 0.5D;
 			double d1 = this.pos.getZ() + 0.5D;
 
-			worldObj.playSoundEffect(d, this.pos.getY() + 0.5D, d1, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			worldObj.playSound(null, d, this.pos.getY() + 0.5D, d1, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
 		if((numUsingPlayers == 0 && lidAngle > 0F) || (numUsingPlayers > 0 && lidAngle < 1F))
@@ -106,7 +108,7 @@ public class TileEntityShowcase extends TileEntityLockable implements ITickable
 				double d2 = this.pos.getX() + 0.5D;
 				double d3 = this.pos.getZ() + 0.5D;
 
-				worldObj.playSoundEffect(d2, this.pos.getY() + 0.5D, d3, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+				worldObj.playSound(null, d2, this.pos.getY() + 0.5D, d3, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			}
 		}
 	}
