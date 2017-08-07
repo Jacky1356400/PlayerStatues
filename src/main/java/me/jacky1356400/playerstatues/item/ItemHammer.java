@@ -2,7 +2,13 @@ package me.jacky1356400.playerstatues.item;
 
 import me.jacky1356400.playerstatues.util.Data;
 import me.jacky1356400.playerstatues.util.IHasModel;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class ItemHammer extends Item implements IHasModel {
 	public ItemHammer() {
@@ -15,6 +21,18 @@ public class ItemHammer extends Item implements IHasModel {
 
 	@Override
 	public boolean isFull3D() {
+		return true;
+	}
+
+	public static boolean canSculpt(Block block, World world, IBlockState state) {
+		if(block==null) return false;
+		if(block.equals(Blocks.BEDROCK)) return false;
+		if(block.getMaterial(state) == Material.CIRCUITS) return false;
+		if(block.getMaterial(state) == Material.FIRE) return false;
+		if(block.getMaterial(state) == Material.LAVA) return false;
+		if(block.getMaterial(state) == Material.WATER) return false;
+		if(world.getTileEntity(BlockPos.ORIGIN)!=null) return false;
+
 		return true;
 	}
 

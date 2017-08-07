@@ -10,20 +10,19 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-
 version = "${mc_version}-${mod_version}"
-group = "me.jacky1356400.playerstatues" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "me.jacky1356400.playerstatues"
 archivesBaseName = "PlayerStatues"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12-14.21.1.2387"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
-    mappings = "snapshot_20170630"
+    mappings = "${mappings_version}"
 }
 
 repositories {
@@ -43,26 +42,19 @@ repositories {
 
 dependencies {
     compile files('libs/')
-	deobfCompile "mezz.jei:jei_1.12:4.7.0.68:api"
-    runtime "mezz.jei:jei_1.12:4.7.0.68"
-	deobfCompile "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12:api"
-	runtime "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12"
+	deobfCompile "mezz.jei:jei_1.12:4.7.1.+:api"
+    runtime "mezz.jei:jei_1.12:4.7.1.+"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.19-B33_1.12:api"
+	runtime "mcp.mobius.waila:Hwyla:1.8.19-B33_1.12"
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
-    // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }

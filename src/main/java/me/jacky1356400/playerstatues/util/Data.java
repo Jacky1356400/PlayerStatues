@@ -14,7 +14,6 @@ public class Data {
 
     public static final List<Item> ITEMS = new ArrayList<Item>();
     public static final List<Block> BLOCKS = new ArrayList<Block>();
-    public static final List<IRecipe> RECIPES = new ArrayList<IRecipe>();
     public static final String VERSION = "1.0";
     public static final String MODID = "playerstatues";
     public static final String MODNAME = "PlayerStatues";
