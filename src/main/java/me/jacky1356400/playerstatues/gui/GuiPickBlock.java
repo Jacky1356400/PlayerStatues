@@ -1,7 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 
-import me.jacky1356400.playerstatues.utilities.GeneralClient;
+import me.jacky1356400.playerstatues.util.GeneralClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -9,8 +9,10 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class GuiPickBlock extends GuiContainer
-{
+import java.io.IOException;
+
+public class GuiPickBlock extends GuiContainer {
+
     Scrollbar scrollbar;
     ContainerPickBlock container;
     GuiScreen parent;
@@ -27,17 +29,19 @@ public class GuiPickBlock extends GuiContainer
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
-    {
+    protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
         GeneralClient.bind("vending:textures/list_items.png");
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        scrollbar.drawButton(mc, x, y);
+        scrollbar.drawButton(mc, x, y, 0.0F);
     }
 
     @Override
-    public void handleMouseInput()
-    {
-        super.handleMouseInput();
+    public void handleMouseInput() {
+        try {
+            super.handleMouseInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         scrollbar.handleMouseInput();
     }
 
@@ -45,8 +49,7 @@ public class GuiPickBlock extends GuiContainer
      * Adds the buttons (and other controls) to the screen in question.
      */
     @Override
-    public void initGui()
-    {
+    public void initGui() {
         super.initGui();
         buttonList.add(scrollbar = new Scrollbar(200, guiLeft + 175, guiTop + 18, 12, 124, "")
         {
@@ -77,8 +80,7 @@ public class GuiPickBlock extends GuiContainer
         buttonList.add(new GuiButton(100, guiLeft + 44, guiTop + 151, 70, 20, "Select"));
     }
 
-    public void picked(ItemStack stack)
-    {
+    public void picked(ItemStack stack) {
         if (parent == null)
         {
             return;
@@ -95,8 +97,7 @@ public class GuiPickBlock extends GuiContainer
      * ActionListener.actionPerformed(ActionEvent e).
      */
     @Override
-    protected void actionPerformed(GuiButton button)
-    {
+    protected void actionPerformed(GuiButton button) {
         switch (button.id)
         {
             case 100:
@@ -111,4 +112,5 @@ public class GuiPickBlock extends GuiContainer
                 break;
         }
     }
+
 }

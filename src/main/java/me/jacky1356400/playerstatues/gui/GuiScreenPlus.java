@@ -1,7 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
-import me.jacky1356400.playerstatues.utilities.DummyContainer;
-import me.jacky1356400.playerstatues.utilities.GeneralClient;
+import me.jacky1356400.playerstatues.util.DummyContainer;
+import me.jacky1356400.playerstatues.util.GeneralClient;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,6 +10,8 @@ import net.minecraft.inventory.Container;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import java.io.IOException;
 
 public class GuiScreenPlus extends GuiContainer {
 	public int screenW;
@@ -108,8 +110,12 @@ public class GuiScreenPlus extends GuiContainer {
 		}
 
 		if (!mouseEvent.handled) {
-			super.handleMouseInput();
-		}
+            try {
+                super.handleMouseInput();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	InputKeyboardEvent keyboardEvent = new InputKeyboardEvent();
@@ -132,8 +138,12 @@ public class GuiScreenPlus extends GuiContainer {
 		}
 
 		if (!keyboardEvent.handled) {
-			super.handleKeyboardInput();
-		}
+            try {
+                super.handleKeyboardInput();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	public void close() {
@@ -159,23 +169,23 @@ public class GuiScreenPlus extends GuiContainer {
 	}
 
 	public void drawString(String text, int sx, int sy, int color) {
-		fontRendererObj.drawString(text, sx, sy, color);
+		fontRenderer.drawString(text, sx, sy, color);
 	}
 
 	public void drawCenteredString(String text, int sx, int sy, int color) {
-		fontRendererObj.drawString(text, sx - fontRendererObj.getStringWidth(text) / 2, sy - fontRendererObj.FONT_HEIGHT / 2, color);
+        fontRenderer.drawString(text, sx - fontRenderer.getStringWidth(text) / 2, sy - fontRenderer.FONT_HEIGHT / 2, color);
 	}
 
 	public void drawStringWithShadow(String text, int sx, int sy, int color) {
-		fontRendererObj.drawStringWithShadow(text, sx, sy, color);
+        fontRenderer.drawStringWithShadow(text, sx, sy, color);
 	}
 
 	public void drawCenteredStringWithShadow(String text, int sx, int sy, int color) {
-		fontRendererObj.drawStringWithShadow(text, sx - fontRendererObj.getStringWidth(text) / 2, sy - fontRendererObj.FONT_HEIGHT / 2, color);
+        fontRenderer.drawStringWithShadow(text, sx - fontRenderer.getStringWidth(text) / 2, sy - fontRenderer.FONT_HEIGHT / 2, color);
 	}
 
 	public FontRenderer fontRendererObj() {
-		return this.fontRendererObj;
+		return this.fontRenderer;
 	}
 
 	protected void drawRect(int gx, int gy, int gw, int gh, int c1, int c2) {
@@ -186,8 +196,8 @@ public class GuiScreenPlus extends GuiContainer {
 		if(rw==0 || rh==0 || tw==0 || th==0) return;
 		
 		float pixel = 0.00390625f;
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.draw();
 
 		for (int y = 0; y < rh; y += th) {
 			for (int x = 0; x < rw; x += tw) {
@@ -225,8 +235,4 @@ public class GuiScreenPlus extends GuiContainer {
 		GeneralClient.bind(tex);
 	}
 
-	public void playSound(String sound, float volume, float pitch) {
-		// TODO
-		//mc.getSoundHandler().playSoundFX(null, 1.0F, 1.0F);
-	}
 }

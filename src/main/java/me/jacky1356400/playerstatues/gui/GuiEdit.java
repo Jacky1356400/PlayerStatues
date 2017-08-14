@@ -12,7 +12,7 @@ public class GuiEdit extends GuiElement {
 
 	@Override
 	public void onAdded() {
-		field = new GuiTextField(gui.fontRendererObj(), x, y, w, h);
+		field = new GuiTextField(1, gui.fontRendererObj(), x, y, w, h);
 		setText(tempString);
 	}
 

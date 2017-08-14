@@ -1,4 +1,4 @@
-item.statues.statue.name=Статуя
-item.statues.marteau.name=Молоток
-item.statues.showcase.name=Витрина
-item.statues.palette.name=Палитра
+item.playerstatues.statue.name=Статуя
+item.playerstatues.marteau.name=Молоток
+item.playerstatues.showcase.name=Витрина
+item.playerstatues.palette.name=Палитра

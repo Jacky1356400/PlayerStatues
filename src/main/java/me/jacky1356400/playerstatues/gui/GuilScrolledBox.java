@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public class GuilScrolledBox extends GuiElement {
+
 	public int offset=0;
 	int contentHeight=0;
 	int scrollingStart=-1;
@@ -17,11 +18,11 @@ public class GuilScrolledBox extends GuiElement {
 	int x0,x1;
 	
 	protected void overlayBackground(int start, int end, int color, int a1, int a2){
-        Tessellator tessellator = Tessellator.instance;
+        Tessellator tessellator = Tessellator.getInstance();
         
         float f = 32.0F;
         
-        tessellator.startDrawingQuads();
+        tessellator.draw();
         tessellator.setColorRGBA_I(color, a2);
         tessellator.addVertexWithUV(x0, end, 0.0D, 0.0D, end / f);
         tessellator.addVertexWithUV(x1, end, 0.0D, gui.width / f, end / f);
@@ -45,7 +46,7 @@ public class GuilScrolledBox extends GuiElement {
 	@Override
 	public void render() {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.optionsBackground);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         x0=-gui.screenX; x1=-gui.screenX+gui.width;
         
         overlayBackground(y, h, 0x202020, 0xff, 0xff);
@@ -67,7 +68,7 @@ public class GuilScrolledBox extends GuiElement {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_BLEND);
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.optionsBackground);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         overlayBackground(-gui.screenY, y, 0x404040, 0xff, 0xff);
         overlayBackground(h, -gui.screenY+gui.height, 0x404040, 0xff, 0xff);
 	}
@@ -106,6 +107,7 @@ public class GuilScrolledBox extends GuiElement {
 			ev.y+=offset;
 		}
 	}
+
 }
 
 

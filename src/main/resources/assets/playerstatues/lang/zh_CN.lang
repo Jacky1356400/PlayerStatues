@@ -1,4 +1,4 @@
-item.statues.statue.name=雕像
-item.statues.marteau.name=雕刻槌
-item.statues.showcase.name=展示柜台
-item.statues.palette.name=调色板
+item.playerstatues.statue.name=雕像
+item.playerstatues.marteau.name=雕刻槌
+item.playerstatues.showcase.name=展示柜台
+item.playerstatues.palette.name=调色板

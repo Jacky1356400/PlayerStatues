@@ -1,16 +1,17 @@
 package me.jacky1356400.playerstatues.gui;
 
-import me.jacky1356400.playerstatues.utilities.InventoryStatic;
+import me.jacky1356400.playerstatues.util.InventoryStatic;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 
-import java.util.ArrayList;
-
-public class ContainerPickBlock extends Container
-{
-    ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+public class ContainerPickBlock extends Container {
+    NonNullList<ItemStack> items = NonNullList.create();
     GuiPickBlock gui;
     EntityPlayer player;
     int width = 9;
@@ -20,13 +21,13 @@ public class ContainerPickBlock extends Container
 
     public ContainerPickBlock(EntityPlayer p)
     {
-        for (Object o : Item.itemRegistry.getKeys())
+        for (Object o : Item.REGISTRY.getKeys())
         {
-            Item item = (Item)Item.itemRegistry.getObject((String)o);
+            Item item = Item.REGISTRY.getObject(new ResourceLocation((String)o));
 
             if (item != null && item.getCreativeTab() != null)
             {
-                item.getSubItems(item, null, items);
+                item.getSubItems(CreativeTabs.HOTBAR, items);
             }
         }
 
@@ -48,9 +49,54 @@ public class ContainerPickBlock extends Container
     public InventoryStatic inventory = new InventoryStatic(width * height + 1)
     {
         @Override
+        public String getName() {
+            return null;
+        }
+
+        @Override
+        public boolean hasCustomName() {
+            return false;
+        }
+
+        @Override
+        public ITextComponent getDisplayName() {
+            return null;
+        }
+
+        @Override
+        public ItemStack removeStackFromSlot(int index) {
+            return null;
+        }
+
+        @Override
+        public void openInventory(EntityPlayer player) {
+
+        }
+
+        @Override
+        public void closeInventory(EntityPlayer player) {
+
+        }
+
+        @Override
         public boolean isItemValidForSlot(int i, ItemStack itemstack)
         {
             return false;
+        }
+
+        @Override
+        public int getField(int id) {
+            return 0;
+        }
+
+        @Override
+        public void setField(int id, int value) {
+
+        }
+
+        @Override
+        public int getFieldCount() {
+            return 0;
         }
     };
 

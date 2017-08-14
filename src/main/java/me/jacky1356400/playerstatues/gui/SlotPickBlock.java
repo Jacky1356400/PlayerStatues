@@ -28,21 +28,21 @@ public class SlotPickBlock extends Slot
             return;
         }
 
-        putStack(new ItemStack(itemstack.getItem(), itemstack.stackSize, itemstack.getItemDamage()));
+        putStack(new ItemStack(itemstack.getItem(), itemstack.getCount(), itemstack.getItemDamage()));
         int newSize;
 
         if (container.resultSlot == this)
         {
-            newSize = itemstack.stackSize - count;
+            newSize = itemstack.getCount() - count;
         }
         else
         {
-            newSize = itemstack.stackSize;
+            newSize = itemstack.getCount();
             ItemStack otherstack = container.resultSlot.getStack();
 
             if (otherstack != null && otherstack.getItem().equals(itemstack.getItem()) && otherstack.getItemDamage() == itemstack.getItemDamage())
             {
-                newSize = otherstack.stackSize + count;
+                newSize = otherstack.getCount() + count;
             }
             else
             {

@@ -1,4 +1,4 @@
-item.statues.statue.name=Statue
-item.statues.marteau.name=Hammer
-item.statues.showcase.name=Vitrine
-item.statues.palette.name=Palette
+item.playerstatues.statue.name=Statue
+item.playerstatues.marteau.name=Hammer
+item.playerstatues.showcase.name=Vitrine
+item.playerstatues.palette.name=Palette

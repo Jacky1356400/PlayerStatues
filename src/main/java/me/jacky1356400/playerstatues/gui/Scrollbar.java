@@ -1,6 +1,6 @@
 package me.jacky1356400.playerstatues.gui;
 
-import me.jacky1356400.playerstatues.utilities.GeneralClient;
+import me.jacky1356400.playerstatues.util.GeneralClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;
@@ -30,11 +30,11 @@ public abstract class Scrollbar extends GuiButton {
 	 */
 	@Override
 	public boolean mousePressed(Minecraft mc, int x, int y) {
-		if (x < xPosition || x >= xPosition + width) {
+		if (x < this.x || x >= this.x + width) {
 			return false;
 		}
 
-		if (y < yPosition || y >= yPosition + height) {
+		if (y < this.y || y >= this.y + height) {
 			return false;
 		}
 
@@ -49,10 +49,10 @@ public abstract class Scrollbar extends GuiButton {
 	 * Draws this button to the screen.
 	 */
 	@Override
-	public void drawButton(Minecraft mc, int x, int y) {
+	public void drawButton(Minecraft mc, int x, int y, float partialTicks) {
 		if (dragged) {
 			float initialOffset = offset;
-			int off = y - yPosition - elementHeight / 2;
+			int off = y - this.y - elementHeight / 2;
 			offset = 1.0f * off / (height - elementHeight);
 
 			if (offset < 0) {
@@ -68,9 +68,9 @@ public abstract class Scrollbar extends GuiButton {
 			}
 		}
 
-		int bottom = yPosition + height;
+		int bottom = this.y + height;
 		GeneralClient.bind("/gui/allitems.png");
-		drawTexturedModalRect(xPosition, yPosition + (int) ((height - elementHeight) * offset), active ? 232 : 244, 0, 12, elementHeight);
+		drawTexturedModalRect(this.x, this.y + (int) ((height - elementHeight) * offset), active ? 232 : 244, 0, 12, elementHeight);
 	}
 
 	public void handleMouseInput() {
