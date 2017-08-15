@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.input.Mouse;
 
 public abstract class Scrollbar extends GuiButton {
+
 	public boolean active;
 
 	public float offset;
@@ -103,4 +104,5 @@ public abstract class Scrollbar extends GuiButton {
 	}
 
 	public abstract void onScrolled(float off);
+
 }

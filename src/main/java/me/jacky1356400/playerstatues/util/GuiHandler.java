@@ -2,6 +2,7 @@ package me.jacky1356400.playerstatues.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.util.ArrayList;

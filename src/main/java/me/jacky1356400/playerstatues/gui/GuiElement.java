@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 
 public class GuiElement {
+
 	public int x;
 	public int y;
 	public int w;
@@ -149,4 +150,5 @@ public class GuiElement {
 			}
 		}
 	}
+
 }

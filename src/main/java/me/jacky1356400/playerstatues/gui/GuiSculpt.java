@@ -3,6 +3,7 @@ package me.jacky1356400.playerstatues.gui;
 import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.entity.EntityStatuePlayer;
 import me.jacky1356400.playerstatues.render.RenderPlayerStatue;
+import me.jacky1356400.playerstatues.util.Packet;
 import me.jacky1356400.playerstatues.util.Packets;
 import me.jacky1356400.playerstatues.util.StatueParameters;
 import net.minecraft.block.Block;
@@ -15,16 +16,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import pl.asie.lib.network.Packet;
 
 import java.util.Random;
 
 public class GuiSculpt extends GuiScreenPlus  {
 
-	Random rand=new Random();
-	EntityStatuePlayer player=null;
-	RenderPlayerStatue renderer=new RenderPlayerStatue();
-	static StatueParameters pose=new StatueParameters();
+    public Random rand=new Random();
+    public EntityStatuePlayer player = null;
+    public RenderPlayerStatue renderer = new RenderPlayerStatue();
+	public static StatueParameters pose = new StatueParameters();
 	
 	GuiEdit skinNameEdit;
 	int worldX,worldY,worldZ;

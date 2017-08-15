@@ -3,6 +3,7 @@ package me.jacky1356400.playerstatues.render;
 import me.jacky1356400.playerstatues.entity.EntityTextureFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -10,11 +11,15 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderTextureFX extends Render {
 
-	@Override
+    public RenderTextureFX(RenderManager renderManager) {
+        super(renderManager);
+    }
+
+    @Override
 	public void doRender(Entity entity, double x, double y, double z, float unk, float frame) {
 		EntityTextureFX e=(EntityTextureFX) entity;
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, e.texture.getGlTextureId());
-		Tessellator tessellator = Tessellator.instance;
+		Tessellator tessellator = Tessellator.getInstance();
 		
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x, (float)y, (float)z);
@@ -27,7 +32,7 @@ public class RenderTextureFX extends Render {
         float v0 = e.pv;
         float v1 = e.pv+e.scaleV;
         double s=0.14;
-        tessellator.startDrawingQuads();
+        tessellator.draw();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
         tessellator.addVertexWithUV(  s,   s, 0.0D, u1, v1);
         tessellator.addVertexWithUV(0.0,   s, 0.0D, u0, v1);

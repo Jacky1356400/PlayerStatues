@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class EntityTextureFX extends Entity {
 
-	AbstractTexture texture;
+    public AbstractTexture texture;
 	private int	particleAge;
 	public int particleMaxAge;
 	static Random rand=new Random();

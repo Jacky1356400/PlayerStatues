@@ -32,7 +32,7 @@ public class ImageData {
 		
 		
 		try {
-			ResourceLocation resource=GeneralStatueClient.getBlockIcon(block, side, meta);
+			ResourceLocation resource = GeneralStatueClient.getBlockIcon(block, side, meta);
 			BufferedImage origImage=ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(resource).getInputStream());
 			BufferedImage image = new BufferedImage(origImage.getWidth(), origImage.getHeight(), 2);
 			Graphics graphics = image.getGraphics();

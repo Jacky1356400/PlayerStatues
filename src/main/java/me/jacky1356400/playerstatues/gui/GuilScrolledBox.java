@@ -2,8 +2,11 @@ package me.jacky1356400.playerstatues.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 public class GuilScrolledBox extends GuiElement {
 
@@ -19,14 +22,15 @@ public class GuilScrolledBox extends GuiElement {
 	
 	protected void overlayBackground(int start, int end, int color, int a1, int a2){
         Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
         
         float f = 32.0F;
         
         tessellator.draw();
-        tessellator.setColorRGBA_I(color, a2);
+        buffer.putColorRGBA(a2, new Color(color).getRed(), new Color(color).getGreen(), new Color(color).getBlue());
         tessellator.addVertexWithUV(x0, end, 0.0D, 0.0D, end / f);
         tessellator.addVertexWithUV(x1, end, 0.0D, gui.width / f, end / f);
-        tessellator.setColorRGBA_I(color, a1);
+        buffer.putColorRGBA(a1, new Color(color).getRed(), new Color(color).getGreen(), new Color(color).getBlue());
         tessellator.addVertexWithUV(x1, start, 0.0D, gui.width / f, start / f);
         tessellator.addVertexWithUV(x0, start, 0.0D, 0.0D, start / f);
         tessellator.draw();

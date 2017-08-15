@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public abstract class PacketData {
+
 	ByteArrayOutputStream s = new ByteArrayOutputStream();
 	byte packetIndex;
 
@@ -22,4 +23,5 @@ public abstract class PacketData {
 
 		return s;
 	}
+
 }

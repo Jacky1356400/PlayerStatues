@@ -1,6 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 public class TexturedBox {
+
 	String texture;
 	int u, v, texw, texh;
 	int borderTop, borderRight, borderBottom, borderLeft;
@@ -65,4 +66,5 @@ public class TexturedBox {
 		gui.drawTiledRect(x2, y3, w2, h3, u2, v3, texw2, texh3);
 		gui.drawTexturedModalRect(x3, y3, u3, v3, w3, h3);
 	}
+
 }

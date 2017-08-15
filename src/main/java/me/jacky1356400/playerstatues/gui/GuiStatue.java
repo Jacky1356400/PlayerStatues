@@ -7,16 +7,17 @@ package me.jacky1356400.playerstatues.gui;
 import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.container.ContainerStatue;
 import me.jacky1356400.playerstatues.tile.TileEntityStatue;
+import me.jacky1356400.playerstatues.util.Packet;
 import me.jacky1356400.playerstatues.util.Packets;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.world.World;
-import pl.asie.lib.network.Packet;
 
 public class GuiStatue extends GuiScreenPlus {
-	public final InventoryPlayer	invg;
+
+	public final InventoryPlayer invg;
 	public final TileEntityStatue tile;
-	int wx,wy,wz;
-	float ila,ira;
+    public int wx,wy,wz;
+    public float ila,ira;
 
 	public GuiStatue(InventoryPlayer inv, final TileEntityStatue te, World par2, int x, int y, int z) {
 		super(new ContainerStatue(inv, te),176,226,"playerstatues:textures/gui-statue.png");

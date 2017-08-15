@@ -5,19 +5,25 @@ import me.jacky1356400.playerstatues.entity.EntityTextureFX;
 import me.jacky1356400.playerstatues.tile.TileEntityStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class GeneralStatueClient {
+
 	static Random rand=new Random();
 	
-	public static EntityDiggingFX addBlockHitEffects(World world, int x, int y, int z, Block block, int meta, int side) {
-		EffectRenderer renderer = Minecraft.getMinecraft().effectRenderer;
+	public static EntityTextureFX addBlockHitEffects(World world, int x, int y, int z, Block block, int meta, int side) {
+		ParticleManager renderer = Minecraft.getMinecraft().effectRenderer;
 
 		if(block==null) return null;
 		
@@ -47,7 +53,7 @@ public class GeneralStatueClient {
 			break;
 		}
 
-		EntityDiggingFX res = new EntityDiggingFX(world, d0, d1, d2, 0.0D, 0.0D, 0.0D, block, meta, side);
+		EntityTextureFX res = new Particle(world, d0, d1, d2, 0.0D, 0.0D, 0.0D, block, meta, side);
 		res.motionX = d0 - (x + 0.5);
 		res.motionY = d1 - (y + 0.5);
 		res.motionZ = d2 - (z + 0.5);
@@ -63,7 +69,7 @@ public class GeneralStatueClient {
 		World world = Minecraft.getMinecraft().world;
 		for (int side = 0; side < 6; side++) {
 			for (int j = 0; j < 32; j++) {
-				EntityDiggingFX fx = addBlockHitEffects(Minecraft.getMinecraft().world, x, y, z, block, meta, side);
+				EntityTextureFX fx = addBlockHitEffects(Minecraft.getMinecraft().world, x, y, z, block, meta, side);
 				if(fx==null) return;
 				
 				fx.multipleParticleScaleBy(0.25f + 0.5f * rand.nextFloat());
@@ -146,18 +152,19 @@ public class GeneralStatueClient {
 		
 	}
 
-	public static void spawnCopyEffect(World world, int x, int y, int z, int side, float hx, float hy, float hz, TileEntityStatue statue) {
-		world.playSound(x + 0.5, y + 0.5, z + 0.5, "playerstatues:copy", 2.0F, world.rand.nextFloat()*0.4f+0.8f, false);
+	public static void spawnCopyEffect(World world, int x, int y, int z, EnumFacing side, float hx, float hy, float hz, TileEntityStatue statue) {
+		world.playSound(null, x + 0.5, y + 0.5, z + 0.5,
+                SoundEvent.REGISTRY.getObject(new ResourceLocation("playerstatues", "copy")),
+                SoundCategory.BLOCKS, 2.0F, world.rand.nextFloat()*0.4f+0.8f);
 
 		for(int i=0;i<8;i++){
-			EntityDiggingFX fx = addBlockHitEffects(Minecraft.getMinecraft().world, x, y, z, statue.block, statue.meta, side);
+			EntityTextureFX fx = addBlockHitEffects(Minecraft.getMinecraft().world, x, y, z, statue.block, statue.meta, side);
 			if(fx==null) return;
 			
 			fx.setPosition(x+hx, y+hy, z+hz);
 			fx.multipleParticleScaleBy(0.15f + 0.7f * rand.nextFloat());
-			fx.multiplyVelocity(0.3f * rand.nextFloat());		
+			fx.multiplyVelocity(0.3f * rand.nextFloat());
 		}
 	}
-
 
 }

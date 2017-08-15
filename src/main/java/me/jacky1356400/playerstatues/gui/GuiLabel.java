@@ -1,6 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 public class GuiLabel extends GuiElement {
+
 	String caption;
 
 	public GuiLabel(int x, int y, int w, int h, String caption) {
@@ -16,4 +17,5 @@ public class GuiLabel extends GuiElement {
 	public void render() {
 		gui.drawString(caption, x, y, 0x404040);
 	}
+
 }

@@ -12,8 +12,7 @@ public abstract class ContainerBase extends Container {
     public ContainerBase(TileEntityBase entity, InventoryPlayer inventoryPlayer) {
         super();
         this.entity = entity;
-
-        entity.openInventory();
+        entity.openInventory(inventoryPlayer.player);
     }
 
     public TileEntityBase getEntity() {
@@ -28,7 +27,7 @@ public abstract class ContainerBase extends Container {
     @Override
     public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
-        this.entity.closeInventory();
+        this.entity.closeInventory(par1EntityPlayer);
     }
 
 }

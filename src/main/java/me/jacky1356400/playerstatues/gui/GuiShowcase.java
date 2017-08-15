@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class GuiShowcase extends GuiContainer {
+
 	public final InventoryPlayer	invg;
 	public final TileEntityShowcase tile;
 	World							monde;

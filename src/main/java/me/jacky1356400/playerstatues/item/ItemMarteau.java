@@ -9,6 +9,7 @@ import me.jacky1356400.playerstatues.block.BlockStatue;
 import me.jacky1356400.playerstatues.gui.GuiSculpt;
 import me.jacky1356400.playerstatues.tile.TileEntityStatue;
 import me.jacky1356400.playerstatues.util.GeneralStatueClient;
+import me.jacky1356400.playerstatues.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,13 +19,15 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemMarteau extends Item {
+public class ItemMarteau extends Item implements IHasModel {
 
 	public ItemMarteau() {
 		super();
-        setMaxDamage(2);
-		maxStackSize=1;
+		setMaxStackSize(1);
+        setRegistryName(PlayerStatues.MODID + ":marteau");
+		setUnlocalizedName(PlayerStatues.MODID + ".marteau");
 		setCreativeTab(PlayerStatues.TAB);
+		PlayerStatues.ITEMS.add(this);
 	}
 
 	@Override
@@ -34,7 +37,7 @@ public class ItemMarteau extends Item {
 
 	@Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        int x=pos.getX(),y=pos.getY(),z=pos.getZ();
+        int x = pos.getX(), y = pos.getY(), z = pos.getZ();
 	    if (world.isRemote && world.getTileEntity(pos) instanceof TileEntityStatue){
 	    	int ox=x;int oy=y;int oz=z;
 			

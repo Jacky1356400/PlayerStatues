@@ -6,7 +6,10 @@ package me.jacky1356400.playerstatues.block;
 
 import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.tile.TileEntityStatue;
+import me.jacky1356400.playerstatues.util.IHasModel;
+import me.jacky1356400.playerstatues.util.ItemUtils;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,16 +21,20 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import pl.asie.lib.util.ItemUtils;
 
 import java.util.Random;
 
-public class BlockStatue extends BlockContainer {
+public class BlockStatue extends BlockContainer implements IHasModel {
 
 	public BlockStatue(Material material) {
 		super(material);
-		
+        setRegistryName(PlayerStatues.MODID + ":statue");
+        setUnlocalizedName(PlayerStatues.MODID + ".statue");
+        setHardness(1.0F);
+        setResistance(1.0F);
 		setLightOpacity(0);
+        setSoundType(SoundType.STONE);
+        PlayerStatues.BLOCKS.add(this);
 	}
 
     @Override
@@ -35,12 +42,12 @@ public class BlockStatue extends BlockContainer {
         return 0;
     }
 
-	@Override
+	@Override @SuppressWarnings("deprecation")
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
-	@Override
+	@Override @SuppressWarnings("deprecation")
     public boolean isNormalCube(IBlockState state) {
 		return false;
 	}
@@ -50,7 +57,7 @@ public class BlockStatue extends BlockContainer {
 		return EnumBlockRenderType.MODEL;
 	}
 	
-    @Override
+    @Override @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     	int meta = state.getBlock().getMetaFromState(state);
     	
@@ -78,7 +85,7 @@ public class BlockStatue extends BlockContainer {
     		y--;
 		
 		TileEntityStatue statue = (TileEntityStatue) world.getTileEntity(pos);
-		if (statue instanceof TileEntityStatue)
+		if (statue != null)
 			PlayerStatues.guiStatue.open(entityplayer, world, x, y, z);
 		
 		return true;
@@ -92,7 +99,7 @@ public class BlockStatue extends BlockContainer {
 		    world.setBlockToAir(new BlockPos(x, y+1, z));
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile instanceof TileEntityStatue) {
-				ItemUtils.dropItems(world, x, y, z, (TileEntityStatue)tile);
+				ItemUtils.dropItems(world, pos, (TileEntityStatue)tile);
 			}
 		} else{
             world.setBlockToAir(new BlockPos(x, y-1, z));

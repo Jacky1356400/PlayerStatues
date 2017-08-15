@@ -8,8 +8,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelArmor extends ModelBase
-{
+public class ModelArmor extends ModelBase {
+
 	ModelRenderer jambe_droite;
 	ModelRenderer jambe_gauche;
 	ModelRenderer corps;
@@ -17,13 +17,11 @@ public class ModelArmor extends ModelBase
 	ModelRenderer bras_gauche;
 	ModelRenderer tete;
 	
-	public ModelArmor()
-	{
+	public ModelArmor() {
 		this(0.0F);
 	}
 	
-	public ModelArmor(float par1)
-	{
+	public ModelArmor(float par1) {
 		textureWidth = 64;
 		textureHeight = 32;
 		
@@ -63,8 +61,7 @@ public class ModelArmor extends ModelBase
 	/**
 	 * Render a static model as defined in the constructor
 	 */
-	public void renderModel(float f)
-	{
+	public void renderModel(float f) {
 		bras_gauche.render(f);
 		bras_droit.render(f);
 		jambe_gauche.render(f);
@@ -77,8 +74,7 @@ public class ModelArmor extends ModelBase
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-	{
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 		jambe_droite.render(f5);
@@ -92,8 +88,7 @@ public class ModelArmor extends ModelBase
 	/**
 	 * Sets the model rotation.
 	 */
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
@@ -102,10 +97,8 @@ public class ModelArmor extends ModelBase
 	/**
 	 * Change the position of the statue depending of if there is a step or not.
 	 */
-	public void stepExists(boolean exists)
-	{
-		if(!exists)
-		{
+	public void stepExists(boolean exists) {
+		if(!exists) {
 			this.jambe_droite.rotationPointY = 12F;
 			this.jambe_gauche.rotationPointY = 12F;
 			this.corps.rotationPointY = 0F;
@@ -113,8 +106,7 @@ public class ModelArmor extends ModelBase
 			this.bras_gauche.rotationPointY = 0F;
 			this.tete.rotationPointY = -8F;
 		}
-		else
-		{
+		else {
 			this.jambe_droite.rotationPointY = 4F;
 			this.jambe_gauche.rotationPointY = 4F;
 			this.corps.rotationPointY = -8F;

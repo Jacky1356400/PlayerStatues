@@ -1,6 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 public class Gui2dScroller extends GuiElement {
+
 	public double u,v;
 	int sliderX,sliderY,sliderW,sliderH;
 	int sliderDownX=-1,sliderDownY;
@@ -14,7 +15,7 @@ public class Gui2dScroller extends GuiElement {
 		set(initU,initV);
 	}
 	
-	public void set(double uu,double vv){
+	public void set(double uu,double vv) {
 		sliderX=(int) ((u=uu)*(w-sliderW));
 		sliderY=(int) ((v=vv)*(h-sliderH));
 		
@@ -68,6 +69,6 @@ public class Gui2dScroller extends GuiElement {
 	}
 
 	void onChange(){
-		
 	}
+
 }

@@ -6,8 +6,11 @@ package me.jacky1356400.playerstatues.block;
 
 import me.jacky1356400.playerstatues.PlayerStatues;
 import me.jacky1356400.playerstatues.tile.TileEntityShowcase;
+import me.jacky1356400.playerstatues.util.IHasModel;
+import me.jacky1356400.playerstatues.util.ItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,11 +27,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import pl.asie.lib.util.ItemUtils;
 
-public class BlockShowcase extends BlockContainer {
+public class BlockShowcase extends BlockContainer implements IHasModel {
+
 	public BlockShowcase(Material material) {
 		super(material);
+        setRegistryName(PlayerStatues.MODID + ":showcase");
+        setUnlocalizedName(PlayerStatues.MODID + ".showcase");
+        setHardness(1.0F);
+        setResistance(1.0F);
+        setSoundType(SoundType.WOOD);
+        PlayerStatues.BLOCKS.add(this);
 	}
 
     @Override
@@ -37,7 +46,7 @@ public class BlockShowcase extends BlockContainer {
         ret.add(new ItemStack(PlayerStatues.itemShowcase,1));
     }
 
-    @Override
+    @Override @SuppressWarnings("deprecation")
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.PUSH_ONLY;
     }
@@ -53,7 +62,7 @@ public class BlockShowcase extends BlockContainer {
 	/**
 	 * return false if the block isn't a full 1*1 cube
 	 */
-	@Override
+	@Override @SuppressWarnings("deprecation")
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
@@ -61,7 +70,7 @@ public class BlockShowcase extends BlockContainer {
 	/**
 	 * return false if the block mustn't be rendered as a normal block
 	 */
-	@Override
+	@Override @SuppressWarnings("deprecation")
     public boolean isNormalCube(IBlockState state) {
 		return false;
 	}
@@ -69,22 +78,22 @@ public class BlockShowcase extends BlockContainer {
     /**
      * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
-    @Override
+    @Override @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-    	int meta = state.getBlock().getMetaFromState(state);
+        int meta = state.getBlock().getMetaFromState(state);
 
-    	switch(meta){
-    	case 0|4: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.5F, 1.5f, 1.0F); break;
-    	case 2|4: return new AxisAlignedBB(0.5F, 0.0F, 0.0F, 1.0F, 1.5f, 1.0F); break;
-    	case 1|4: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.5f, 0.5F); break;
-    	case 3|4: return new AxisAlignedBB(0.0F, 0.0F, 0.5F, 1.0F, 1.5f, 1.0F); break;
-	    default: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.5f, 1.0F); break;
-    	}
+        switch(meta){
+            case 0|4: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.5F, 1.5f, 1.0F);
+            case 2|4: return new AxisAlignedBB(0.5F, 0.0F, 0.0F, 1.0F, 1.5f, 1.0F);
+            case 1|4: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.5f, 0.5F);
+            case 3|4: return new AxisAlignedBB(0.0F, 0.0F, 0.5F, 1.0F, 1.5f, 1.0F);
+            default: return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.5f, 1.0F);
+        }
     }
     
     @Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entityliving, ItemStack par6ItemStack) {
-        int x=pos.getX(),y=pos.getY(),z=pos.getZ();
+        int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         int meta = MathHelper.floor((entityliving.rotationYaw * 4F) / 360F + 0.5D) & 3;
 		int dx,dz;
 		
@@ -93,11 +102,11 @@ public class BlockShowcase extends BlockContainer {
 		case 0: case 2: dx=1; dz=0; break;
 		case 1: case 3: dx=0; dz=1; break;
 		}
-		
-		world.setBlockMetadataWithNotify(x, y, z, meta, 3);
+
+		world.setBlockState(pos, this.getDefaultState(), meta);
 		if(meta>=2) meta-=2;
-		world.setBlock(x+dx, y, z+dz, this, meta|4, 3);
-		world.setBlock(x-dx, y, z-dz, this, (meta+2)|4, 3);
+		world.setBlockState(new BlockPos(x+dx, y, z+dz), this.getDefaultState(), meta|4);
+		world.setBlockState(new BlockPos(x-dx, y, z-dz), this.getDefaultState(), (meta+2)|4);
     }
 
 	/**
@@ -126,7 +135,7 @@ public class BlockShowcase extends BlockContainer {
 			return true;
 		
 		TileEntityShowcase teshowcase = (TileEntityShowcase) world.getTileEntity(pos);
-		if (teshowcase instanceof TileEntityShowcase && !world.isRemote)
+		if (teshowcase != null && !world.isRemote)
 			PlayerStatues.guiShowcase.open(entityplayer, world, pos.getX(), pos.getY(), pos.getZ());
 		
 		return true;
@@ -142,15 +151,16 @@ public class BlockShowcase extends BlockContainer {
 
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		int x=pos.getX(),y=pos.getY(),z=pos.getZ();
+		int x = pos.getX(),y = pos.getY(),z = pos.getZ();
 		boolean found=true;
 		int meta = state.getBlock().getMetaFromState(state);
 				
 		if(isCenterBlock(state.getBlock(), meta)){
 			TileEntity tile = world.getTileEntity(pos);
-			if(tile instanceof TileEntityShowcase) ItemUtils.dropItems(world, xx, yy, zz, ((TileEntityShowcase) tile));
-		} else{
-			switch(meta&3){
+			if (tile instanceof TileEntityShowcase)
+			    ItemUtils.dropItems(world, pos, ((TileEntityShowcase) tile));
+		} else {
+			switch(meta&3) {
 			default:
 			case 0: case 2:
 				if(isCenterBlock(world, new BlockPos(x-1, y, z), state))
@@ -176,7 +186,7 @@ public class BlockShowcase extends BlockContainer {
 		
 		world.setBlockToAir(pos);
 		
-		switch(meta&3){
+		switch(meta&3) {
 		case 0: case 2:
 		    world.setBlockToAir(new BlockPos(x+1, y, z));
 		    world.setBlockToAir(new BlockPos(x-1, y, z));

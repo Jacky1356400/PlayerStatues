@@ -13,7 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class StatueTextureStatic extends AbstractTexture{
+public class StatueTextureStatic extends AbstractTexture {
+
 	ResourceLocation location;
 	IImageBuffer effect;
 

@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityBase extends TileEntity {
+
     // Base functions for containers
     public void openInventory(EntityPlayer player) {
     }

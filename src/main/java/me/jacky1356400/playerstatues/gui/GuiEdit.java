@@ -3,6 +3,7 @@ package me.jacky1356400.playerstatues.gui;
 import net.minecraft.client.gui.GuiTextField;
 
 public class GuiEdit extends GuiElement {
+
 	GuiTextField field;
 	String tempString="";
 
@@ -54,4 +55,5 @@ public class GuiEdit extends GuiElement {
 			ev.handled = true;
 		}
 	}
+
 }

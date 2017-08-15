@@ -1,25 +1,25 @@
 package me.jacky1356400.playerstatues.util;
 
 import net.minecraft.nbt.NBTTagCompound;
-import pl.asie.lib.network.Packet;
 
 import java.io.IOException;
 
 public class StatueParameters {
-	float armLeftA;
-	float armLeftB;
-	float armRightA;
-	float armRightB;
-	float legLeftA;
-	float legLeftB;
-	float legRightA;
-	float legRightB;
-	float headA;
-	float headB;
-	float bodyA;
-	float bodyB;
-	float itemLeftA;
-	float itemRightA;
+
+    public float armLeftA;
+    public float armLeftB;
+    public float armRightA;
+    public float armRightB;
+    public float legLeftA;
+    public float legLeftB;
+    public float legRightA;
+    public float legRightB;
+    public float headA;
+    public float headB;
+    public float bodyA;
+    public float bodyB;
+    public float itemLeftA;
+    public float itemRightA;
 	
 	public StatueParameters() {
 		armLeftA=2.0f/3;
@@ -40,7 +40,7 @@ public class StatueParameters {
 		itemLeftA=1.0f;
 	}
 	
-	void copyFrom(StatueParameters s){
+	public void copyFrom(StatueParameters s){
 		armLeftA=s.armLeftA;
 		armLeftB=s.armLeftB;
 		armRightA=s.armRightA;
@@ -57,7 +57,7 @@ public class StatueParameters {
 		itemRightA=s.itemRightA;		
 	}
 
-	void write(Packet stream) throws IOException{
+	public void write(Packet stream) throws IOException{
 		stream.writeFloat(armLeftA);
 		stream.writeFloat(armLeftB);
 		stream.writeFloat(armRightA);
@@ -73,8 +73,8 @@ public class StatueParameters {
 		stream.writeFloat(itemLeftA);
 		stream.writeFloat(itemRightA);		
 	}
-	
-	void read(Packet stream) throws IOException{
+
+    public void read(Packet stream) throws IOException{
 		armLeftA=stream.readFloat();
 		armLeftB=stream.readFloat();
 		armRightA=stream.readFloat();
@@ -127,6 +127,5 @@ public class StatueParameters {
 		tag.setFloat("ila",itemLeftA);
 		tag.setFloat("ira",itemRightA);
 	}
-	
-	
+
 }

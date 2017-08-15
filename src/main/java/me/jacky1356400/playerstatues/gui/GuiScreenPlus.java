@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 
 public class GuiScreenPlus extends GuiContainer {
+
 	public int screenW;
 	public int screenH;
 	public int screenX;

@@ -6,10 +6,10 @@ import me.jacky1356400.playerstatues.model.ModelBipedStatue;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,28 +18,25 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.opengl.GL11;
 
-import static net.minecraftforge.client.IItemRenderer.ItemRenderType.EQUIPPED;
-import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.BLOCK_3D;
+public class RenderPlayerStatue extends RenderEntity {
 
-public class RenderPlayerStatue extends RendererLivingEntity {
-	public static final ResourceLocation	steveTextures	= new ResourceLocation("textures/entity/steve.png");
+	public static final ResourceLocation steveTextures = new ResourceLocation("textures/entity/steve.png");
 	public final ModelBipedStatue modelBipedMain;
-	public final ModelBipedStatue			modelArmorChestplate;
-	public final ModelBipedStatue			modelArmor;
+	public final ModelBipedStatue modelArmorChestplate;
+	public final ModelBipedStatue modelArmor;
 
-	public RenderPlayerStatue() {
-		super(new ModelBipedStatue(0.0F), 0.5f);
+	public RenderPlayerStatue(RenderManager manager) {
+		super(manager);
 		modelBipedMain = (ModelBipedStatue) mainModel;
 		modelArmorChestplate = new ModelBipedStatue(1.0F);
 		modelArmor = new ModelBipedStatue(0.5F);
 		shadowSize = 0.5f;
 
 		setRenderManager(RenderManager.instance);
-	}
+    }
 
 	/**
 	 * Set the specified armor model as the player model. Args: player,
@@ -135,7 +132,7 @@ public class RenderPlayerStatue extends RendererLivingEntity {
 		if(stack==null) return;
 
 		if (player.fishEntity != null) {
-			stack = new ItemStack(Items.stick);
+			stack = new ItemStack(Items.STICK);
 		}
 
 		EnumAction enumaction = null;
@@ -146,7 +143,7 @@ public class RenderPlayerStatue extends RendererLivingEntity {
 
 		float f11;
 
-		IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(stack, EQUIPPED);
+		ItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(stack, EQUIPPED);
 		boolean is3D = (customRenderer != null && customRenderer.shouldUseRenderHelper(EQUIPPED, stack, BLOCK_3D));
 		boolean isBlock = stack.getItem() instanceof ItemBlock;
 
@@ -161,7 +158,7 @@ public class RenderPlayerStatue extends RendererLivingEntity {
 			GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glScalef(-f11, -f11, f11);
-		} else if (stack.getItem().equals(Items.bow)) {
+		} else if (stack.getItem().equals(Items.BOW)) {
 			f11 = 0.625F;
 			GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
 			GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
@@ -176,7 +173,7 @@ public class RenderPlayerStatue extends RendererLivingEntity {
 				GL11.glTranslatef(0.0F, -0.125F, 0.0F);
 			}
 
-			if (player.getItemInUseCount() > 0 && enumaction == EnumAction.block) {
+			if (player.getItemInUseCount() > 0 && enumaction == EnumAction.BLOCK) {
 				GL11.glTranslatef(0.05F, 0.0F, -0.1F);
 				GL11.glRotatef(-50.0F, 0.0F, 1.0F, 0.0F);
 				GL11.glRotatef(-10.0F, 1.0F, 0.0F, 0.0F);
@@ -336,7 +333,6 @@ public class RenderPlayerStatue extends RendererLivingEntity {
 		GL11.glRotatef(-45+player.pose.bodyA*90, 0.0f, 1.0f, 0.0f);
 		GL11.glTranslatef(0.0f, -player.yOffset, 0.0f);
 		GL11.glRotatef(-30+player.pose.bodyB*60, 1.0f, 0.0f, 0.0f);
-//        GL11.glScalef(2.0F, 2.0F, 2.0F);
 		GL11.glTranslatef(0.0f, player.yOffset, 0.0f);
 		
 		super.doRender(player, x, y - player.yOffset*(1+voff*0.41f), z, unk, frame);

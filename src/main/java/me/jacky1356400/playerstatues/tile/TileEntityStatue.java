@@ -14,12 +14,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 
-import java.util.Random;
-
 public class TileEntityStatue extends TileEntityChest {
+
 	private EntityPlayer	clientPlayer;
 	public String			skinName	= "";
 	public StatueParameters pose		= new StatueParameters();
@@ -29,9 +28,6 @@ public class TileEntityStatue extends TileEntityChest {
 	public int				facing		= 0;
 	boolean					updated		= true;
 
-	void randomize(Random rand){
-	}
-
 	@Override
 	public int getSizeInventory() {
 		return 6;
@@ -39,7 +35,7 @@ public class TileEntityStatue extends TileEntityChest {
 
 	public EntityStatuePlayer getStatue(){
 		if(clientPlayer==null){
-			EntityStatuePlayer player=new EntityStatuePlayer(worldObj, skinName);
+			EntityStatuePlayer player=new EntityStatuePlayer(world, skinName);
 			player.ticksExisted=10;
 			player.pose=pose;
 			player.applySkin(skinName, block, facing, meta);
@@ -61,7 +57,7 @@ public class TileEntityStatue extends TileEntityChest {
 		pose.readFromNBT(nbttagcompound);
 		
 		block=Block.getBlockById(nbttagcompound.getShort("blockId"));
-		if(block==null) block=Blocks.stone;
+		if(block==null) block=Blocks.STONE;
 		meta=nbttagcompound.getByte("meta");
 		facing=nbttagcompound.getByte("face");
 		
@@ -86,49 +82,32 @@ public class TileEntityStatue extends TileEntityChest {
 	}
 
 	@Override
-	public Packet getDescriptionPacket() {
-		if ((worldObj.getBlockMetadata(xCoord, yCoord, zCoord) & 4) != 0)
+    public SPacketUpdateTileEntity getUpdatePacket() {
+		if ((world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)) & 4) != 0)
 			return null;
 
 		NBTTagCompound tag = new NBTTagCompound();
 		writeToNBT(tag);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
+		return new SPacketUpdateTileEntity(pos, 1, tag);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.func_148857_g());
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.getNbtCompound());
 		
-		if(worldObj.isRemote && Minecraft.getMinecraft().currentScreen instanceof GuiStatue){
+		if(world.isRemote && Minecraft.getMinecraft().currentScreen instanceof GuiStatue){
 			GuiStatue gui=(GuiStatue) Minecraft.getMinecraft().currentScreen;
 			pose.itemLeftA=gui.ila;
 			pose.itemRightA=gui.ira;
 		}
 	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
-		return null;
-	}
 	
 	public void updateModel() {
-		if(clientPlayer!=null && worldObj!=null && worldObj.isRemote){
+		if(clientPlayer!=null && world!=null && world.isRemote){
 			((EntityStatuePlayer)clientPlayer).applySkin(skinName, block, facing, meta);
 		}
 		
 		updated=false;
-	}
-	
-    @Override
-	public void updateEntity(){
-    	if(updated) return;
-    	updated=true;
-    	
-    }
-
-	@Override
-	public boolean hasCustomInventoryName() {
-		return false;
 	}
 
 	@Override
@@ -142,7 +121,7 @@ public class TileEntityStatue extends TileEntityChest {
 			clientPlayer.inventory.armorInventory[3]=getStackInSlot(0);
 		}
 
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 }

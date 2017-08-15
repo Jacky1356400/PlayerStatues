@@ -9,7 +9,7 @@ import me.jacky1356400.playerstatues.tile.TileEntityShowcase;
 import me.jacky1356400.playerstatues.util.GeneralClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,6 +23,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class RenderShowcase extends TileEntitySpecialRenderer {
+
 	private final ModelShowcase showcase;
 	RenderItem renderer = new RenderItem();
 
@@ -75,7 +76,7 @@ public class RenderShowcase extends TileEntitySpecialRenderer {
 		if (stack != null){
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F-0.585F, (float) z + 0.5F);
-			renderItem(tileentity1, Minecraft.getMinecraft().thePlayer, stack,meta, f);
+			renderItem(tileentity1, Minecraft.getMinecraft().player, stack,meta, f);
 			GL11.glPopMatrix();
 		}
 	}
@@ -116,7 +117,7 @@ public class RenderShowcase extends TileEntitySpecialRenderer {
 			}
 		}
 		
-		EntityItem entity = new EntityItem(null, tile.xCoord, tile.yCoord, tile.zCoord, stack);
+		EntityItem entity = new EntityItem(tile.getWorld(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), stack);
 		entity.hoverStart = 0;
 		
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -134,7 +135,8 @@ public class RenderShowcase extends TileEntitySpecialRenderer {
 	 * Render a TileEntity at the given coordinates
 	 */
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f) {
-		renderAModelAt((TileEntityShowcase) tileentity, d, d1, d2, f);
+	public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+		renderAModelAt((TileEntityShowcase) te, x, y, z, partialTicks);
 	}
+
 }

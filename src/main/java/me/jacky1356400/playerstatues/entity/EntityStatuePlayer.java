@@ -20,12 +20,12 @@ import java.util.UUID;
 
 public class EntityStatuePlayer extends EntityPlayer {
 
-	static ResourceLocation	emptySkin	= new ResourceLocation("playerstatues:textures/steve.png");
-	String					skinName	= "";
-	ResourceLocation		skin;
-	AbstractTexture			dataSkin;
+    public static ResourceLocation emptySkin	= new ResourceLocation("playerstatues:textures/steve.png");
+    public String skinName	= "";
+    public ResourceLocation skin;
+    public AbstractTexture dataSkin;
 
-	StatueParameters pose;
+    public StatueParameters pose;
 
 	public EntityStatuePlayer(World world, String username) {
 		super(world, new GameProfile(UUID.fromString("a9cb469c-f43d-4925-946d-c85a90e58a15"), username));

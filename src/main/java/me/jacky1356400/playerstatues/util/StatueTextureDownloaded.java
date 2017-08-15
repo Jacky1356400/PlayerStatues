@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.HashMap;
 
 public class StatueTextureDownloaded extends AbstractTexture {
+
 	public String					imageUrl;
 	public IImageBuffer				effect;
 	public BufferedImage			bufferedImage;
@@ -22,9 +23,9 @@ public class StatueTextureDownloaded extends AbstractTexture {
 	public ThreadDownloadImageData	data;
 	public boolean					textureUploaded;
 	
-	static HashMap<String,BufferedImage> playerTextures=new HashMap<String,BufferedImage>();
+	static HashMap<String,BufferedImage> playerTextures=new HashMap<>();
 
-	public StatueTextureDownloaded(ResourceLocation skinReshource,final String url,AbstractTexture fallback,IImageBuffer imageEffect) {
+	public StatueTextureDownloaded(ResourceLocation skinReshource, final String url, AbstractTexture fallback, IImageBuffer imageEffect) {
 		imageUrl = url;
 		fallbackTexture = fallback;
 		effect = imageEffect;

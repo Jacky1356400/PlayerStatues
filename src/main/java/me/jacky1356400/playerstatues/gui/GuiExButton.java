@@ -1,6 +1,7 @@
 package me.jacky1356400.playerstatues.gui;
 
 public class GuiExButton extends GuiElement {
+
 	protected String caption;
 
 	int u, v, texw, texh;
@@ -67,7 +68,7 @@ public class GuiExButton extends GuiElement {
 			return;
 		}
 
-		gui.playSound("random.click", 1.0f, 1.0f);
 		onClick();
 	}
+
 }

@@ -10,13 +10,14 @@ import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 
 public class ModelShowcase extends ModelBase {
-	ModelRenderer	Shape1;
-	ModelRenderer	Shape2;
-	ModelRenderer	Shape3;
-	ModelRenderer	Shape4;
-	ModelRenderer	Below;
-	ModelRenderer	Lid;
-	ModelRenderer	cradle;
+
+    public ModelRenderer	Shape1;
+    public ModelRenderer	Shape2;
+    public ModelRenderer	Shape3;
+    public ModelRenderer	Shape4;
+    public ModelRenderer	Below;
+	public ModelRenderer	Lid;
+    public ModelRenderer	cradle;
 
 	public ModelShowcase() {
 		textureWidth = 128;
@@ -106,4 +107,5 @@ public class ModelShowcase extends ModelBase {
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
+
 }

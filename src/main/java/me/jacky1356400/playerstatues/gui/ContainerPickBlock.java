@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class ContainerPickBlock extends Container {
+
     NonNullList<ItemStack> items = NonNullList.create();
     GuiPickBlock gui;
     EntityPlayer player;
@@ -19,8 +20,7 @@ public class ContainerPickBlock extends Container {
 
     SlotPickBlock resultSlot;
 
-    public ContainerPickBlock(EntityPlayer p)
-    {
+    public ContainerPickBlock(EntityPlayer p) {
         for (Object o : Item.REGISTRY.getKeys())
         {
             Item item = Item.REGISTRY.getObject(new ResourceLocation((String)o));
@@ -46,8 +46,7 @@ public class ContainerPickBlock extends Container {
         scrollTo(0);
     }
 
-    public InventoryStatic inventory = new InventoryStatic(width * height + 1)
-    {
+    public InventoryStatic inventory = new InventoryStatic(width * height + 1) {
         @Override
         public String getName() {
             return null;
@@ -100,8 +99,7 @@ public class ContainerPickBlock extends Container {
         }
     };
 
-    public void scrollTo(float offset)
-    {
+    public void scrollTo(float offset) {
         int columnsNotFitting = items.size() / width - height + 1;
 
         if (columnsNotFitting < 0)
@@ -130,15 +128,14 @@ public class ContainerPickBlock extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int index)
-    {
+    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         SlotPickBlock slot = (SlotPickBlock) this.inventorySlots.get(index);
         return slot.transferStackInSlot(player);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer)
-    {
+    public boolean canInteractWith(EntityPlayer entityplayer) {
         return true;
     }
+
 }
